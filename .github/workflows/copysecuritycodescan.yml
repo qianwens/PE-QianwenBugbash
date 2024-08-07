@@ -1,0 +1,59 @@
+# This is a workflow template to copy the securitycodescan workflow to user's repository
+
+name: copy_securitycodescan
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+    inputs:
+      _entity_repository_metadata_Name:
+        description: Select a repository
+        required: true
+        type: string
+
+env:
+  TARGET_REPOSITORY: ${{ github.repository_owner }}/${{ inputs._entity_repository_metadata_Name }}
+  TARGET_REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository_owner }}/${{ inputs._entity_repository_metadata_Name }}
+
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        with:
+          path: main
+
+      - uses: actions/checkout@v4
+        with:
+          path: securitycodescan
+          repository: ${{ env.TARGET_REPOSITORY }}
+          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+
+      - name: Copy Sample Workflow
+        run: |
+          mkdir -p securitycodescan/.github/workflows
+          cp main/securitycodescan.yml securitycodescan/.github/workflows/securitycodescan.yml
+
+      - name: Commit and Push
+        working-directory: securitycodescan
+        run: |
+          git branch copy_securitycodescan
+          git checkout copy_securitycodescan
+          git add .github/workflows/sample_deploy.yml
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git commit -am "Add securitycodescan workflow"
+          git push
+
+      - name: Create pull request
+        working-directory: securitycodescan
+        run: |
+          gh pr create --title "Add securitycodescan workflow" --body "Add securitycodescan workflow"
+      
+      - name: Done
+        run: |
+          echo done.
