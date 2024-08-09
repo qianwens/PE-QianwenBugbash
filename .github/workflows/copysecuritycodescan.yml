@@ -24,7 +24,9 @@ jobs:
     steps:
 
       - name: Run a one-line script
-        run: echo "@${{ secrets.ORG_GITHUB_TOKEN }}"
+        env:
+          ORG_GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+        run: echo "$ORG_GITHUB_TOKEN"
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
