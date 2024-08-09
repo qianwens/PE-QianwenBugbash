@@ -39,6 +39,12 @@ jobs:
           repository: ${{ env.TARGET_REPOSITORY }}
           token: ${{ secrets.ORG_GITHUB_TOKEN }}
 
+      - name: create copy_securitycodescan branch
+        working-directory: securitycodescan
+        run: |
+          git branch copy_securitycodescan
+          git checkout copy_securitycodescan
+
       - name: Copy Sample Workflow
         run: |
           mkdir -p securitycodescan/.github/workflows
@@ -47,9 +53,7 @@ jobs:
       - name: Commit and Push
         working-directory: securitycodescan
         run: |
-          git branch copy_securitycodescan
-          git checkout copy_securitycodescan
-          git add .github/workflows/sample_deploy.yml
+          git add .github/*
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -am "Add securitycodescan workflow"
