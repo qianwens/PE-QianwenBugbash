@@ -42,7 +42,7 @@ jobs:
       - name: Copy Sample Workflow
         run: |
           mkdir -p securitycodescan/.github/workflows
-          cp main/securitycodescan.yml securitycodescan/.github/workflows/securitycodescan.yml
+          cp main/.github/workflows/securitycodescan.yml securitycodescan/.github/workflows/securitycodescan.yml
 
       - name: Commit and Push
         working-directory: securitycodescan
