@@ -23,10 +23,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      - name: Run a one-line script
-        env:
-          ORG_GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
-        run: echo "$ORG_GITHUB_TOKEN"
+      - name: Generate branch name with datetime
+        run: echo "BRANCH_NAME=securitycodescan-$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
@@ -42,8 +40,8 @@ jobs:
       - name: create copy_securitycodescan branch
         working-directory: securitycodescan
         run: |
-          git branch copy_securitycodescan
-          git checkout copy_securitycodescan
+          git branch $BRANCH_NAME
+          git checkout $BRANCH_NAME
 
       - name: Copy Sample Workflow
         run: |
@@ -56,8 +54,8 @@ jobs:
           git add .github/*
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git commit -am "Add securitycodescan workflow"
-          git push --set-upstream origin copy_securitycodescan
+          git commit -m "Add securitycodescan workflow"
+          git push --set-upstream origin $BRANCH_NAME
 
       - name: Create pull request
         working-directory: securitycodescan
