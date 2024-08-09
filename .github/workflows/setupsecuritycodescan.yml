@@ -1,6 +1,6 @@
 # This is a workflow template to copy the securitycodescan workflow to user's repository
 
-name: copy_securitycodescan
+name: setup_securitycodescan
 
 # Controls when the workflow will run
 on:
@@ -12,6 +12,9 @@ on:
         type: string
 
 env:
+  # this will be used as the description for the template entity in the dev platform
+  description: This template setup security code scan workflow in user's repository
+
   TARGET_REPOSITORY: ${{ github.repository_owner }}/${{ inputs._entity_repository_metadata_Name }}
   TARGET_REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository_owner }}/${{ inputs._entity_repository_metadata_Name }}
 
