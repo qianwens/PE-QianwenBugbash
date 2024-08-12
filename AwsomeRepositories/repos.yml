@@ -19,7 +19,7 @@ metadata:
     - create
     - azd
 spec:
-  inputJsonSchema: "{\"type\":\"object\",\"properties\":{\"name\":{\"title\":\"name\",\"description\":\"The name of the repository\"},\"description\":{\"title\":\"description\",\"description\":\"description of the repo\",\"type\":\"string\"},\"visibility\":{\"title\":\"visibility\",\"description\":\"visibility of the repo\",\"type\":\"boolean\", \"default\":true},\"required\":[\"name\", \"description\"]}"
+  inputJsonSchema: "{\"type\":\"object\",\"properties\":{\"name\":{\"title\":\"name\",\"description\":\"The name of the repository\"},\"description\":{\"title\":\"description\",\"description\":\"description of the repo\",\"type\":\"string\"},\"visibility\":{\"title\":\"visibility\",\"description\":\"visibility of the repo\",\"type\":\"boolean\", \"default\":true}},\"required\":[\"name\", \"description\"]}"
   creates:
     - kind: Repository
       namespace: contoso-inc
