@@ -11,7 +11,8 @@ metadata:
     github.com/org: Azure-Samples
     github.com/name: azure-search-openai-demo
   links:
-    url: https://github.com/organizations/Contoso-Inc/repositories/new
+    - url: https://github.com/organizations/Contoso-Inc/repositories/new
+      title: web
   tags:
     - github
     - repository
