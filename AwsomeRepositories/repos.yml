@@ -1,0 +1,42 @@
+apiVersion: developer.microsoft.com/v1
+kind: Template
+metadata:
+  name: azure-search-openai-demo
+  title: ChatGpt-like app with your data using Azure OpenAI and Azure AI Search (Python)
+  description: |
+    This template creates a github repo for Python app that uses Azure OpenAI and Azure AI Search to provide a ChatGpt-like experience with your data.
+  namespace: contoso-inc
+  provider: github.com
+  labels:
+    github.com/org: Azure-Samples
+    github.com/name: azure-search-openai-demo
+  links:
+    url: https://github.com/organizations/Contoso-Inc/repositories/new
+  tags:
+    - github
+    - repository
+    - create
+    - azd
+spec:
+  inputJsonSchema:
+    type: object
+    required:
+      - name
+      - description
+    properties:
+      name:
+        title: name
+        type: string
+        description: The name of the repository
+      description:
+        title: description
+        type: string
+        description: The description of the repository
+      visibility:
+        title: visibility
+        type: boolean
+        default: true
+        description: The visibility of the repository
+  creates:
+    - kind: Repository
+      namespace: contoso-inc
